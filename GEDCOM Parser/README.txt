@@ -21,6 +21,14 @@ THINGS YOU CAN DO WITH A PERSON OBJECT
   print out a small biography of the person containing
   name, DOB/DOD, and parents.
 
+THINGS YOU CAN DO WITH A FAMILY OBJECT
+- To get a family object of an individual (an individual can belong to
+  multiple families), you can use the following code:
+
+  for family in gedcomObject.searchForFamilyByIndividualName(INDIVIDUAL_NAME):
+        print(family.printFamily())
+  
+
 This is a very rudimentary and early version of this project. I just wanted to see how far I could get in building this and it turned out fairly decent.
 I will probably work on this alot more as there are many other features I want to add.
 
