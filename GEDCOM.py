@@ -1,26 +1,23 @@
 from Parser import Parser
-from DateStructures import Node
-from DateStructures import Tree
+import DataStructures
 class GEDCOM:
     _individuals = []
     _families = []
-    _treeObject = None
     
     def __init__(self, individuals, families):
         self._individuals = individuals
         self._families = families
         self._setIDMembersToObjects()
-        self._generateFamilyTree()
     
-    def _generateFamilyTree(self):
-        parentOne = self.searchFamilyById(self._individuals[0]._famcID)
+    def _generateFamilyTree(self, startIndividual):
+        parentOne = self.searchFamilyById(startIndividual._famcID)
         if (parentOne != None):
-            parentOne = Node(parentOne._husband)
-        parentTwo = self.searchFamilyById(self._individuals[0]._famcID)
+            parentOne = DataStructures.Node(parentOne._husband)
+        parentTwo = self.searchFamilyById(startIndividual._famcID)
         if (parentTwo != None):
-            parentTwo = Node(parentTwo._wife)
-        firstIndividual = Node(self._individuals[0], None, parentOne, parentTwo)
-        self._treeObject = Tree(firstIndividual, self._families)
+            parentTwo = DataStructures.Node(parentTwo._wife)
+        firstIndividual = DataStructures.Node(startIndividual, None, parentOne, parentTwo)
+        return DataStructures.Tree(firstIndividual, self._families)
 
     @staticmethod
     def fromFile(fileName):

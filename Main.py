@@ -1,8 +1,10 @@
 from GEDCOM import GEDCOM
 def main():
-    filePath = ""
+    filePath = "NobleFamilyTree.ged"
     gedcomFile = GEDCOM.fromFile(filePath)
-    gedcomFile._treeObject._traverseTree(gedcomFile._families, [gedcomFile._treeObject._startNode])
+
+    tree = gedcomFile._generateFamilyTree(gedcomFile._individuals[1])
+    tree._traverseTree([tree._startNode])
 
 if (__name__ == "__main__"):
     main()

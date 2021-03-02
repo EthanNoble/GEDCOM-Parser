@@ -6,7 +6,8 @@ in a Main.py script:
 
 THINGS YOU CAN DO WITH THE GEDCOM OBJECT
 - print the family tree of an individual
-  gedcomFileObject._treeObject._traverseTree(gedcomFileObject._families, [gedcomFile._treeObject._startNode])
+  tree = gedcomFile._generateFamilyTree(gedcomFile._individuals[1])
+  tree._traverseTree([tree._startNode])
 
 - Search for an individual by name
   individual = gedcomFileObject.searchIndividualById("[PERSON ID]")
