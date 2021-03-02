@@ -1,6 +1,6 @@
 from GEDCOM import GEDCOM
 def main():
-    filePath = "NobleFamilyTree.ged"
+    filePath = ""
     gedcomFile = GEDCOM.fromFile(filePath)
 
     tree = gedcomFile._generateFamilyTree(gedcomFile._individuals[1])
