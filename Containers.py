@@ -1,3 +1,4 @@
+from dateutil.parser import parse
 class Individual:
     _indID = None
     _famcID = None
@@ -73,7 +74,7 @@ class Date:
         self._parseDate(date)
 
     @staticmethod
-    def _getIntegerMonth(month):
+    def getIntegerMonth(month):
         months1 = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         months2 = ["Jan", "Feb", "Mar", "Apr", "Ma", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
         months3 = ["Ja", "Fe", "Ma", "Ap", "M", "Ju", "J", "Au", "Sep", "Oc", "No", "De"]
@@ -81,24 +82,25 @@ class Date:
             if (months1[i].lower() == month.lower() or
             months2[i].lower() == month.lower() or
             months3[i].lower() == month.lower()):
-                return i + 1
+                return (i + 1)
+    
+    @staticmethod
+    def getStringMonth(month):
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+        return (months[month - 1])
     
     def _parseDate(self, date):
-        dateList = date.split(" ")
-        if (len(dateList) == 1):
-            self._year = dateList[0]
-        elif (len(dateList) == 2):
-            self._month = self._getIntegerMonth(dateList[0])
-            self._year = dateList[1]
-        elif (len(dateList) == 3):
-            self._day = dateList[0]
-            self._month = self._getIntegerMonth(dateList[1])
-            self._year = dateList[2]
-        else:
+        try:
+            parsedDate = str(parse(date)).replace(' ', '-').split('-')
+            self._year = int(parsedDate[0])
+            self._month = int(parsedDate[1])
+            self._day = int(parsedDate[2])
+        except (ValueError):
+            self._year = -1
             self._failedToParse = True
 
     def display(self):
         if (self._failedToParse):
             print("Failed to parse date")
         else:
-            print(self._day, " ", self._month, " ", self._year)
+            print(self._day, self.getStringMonth(self._month), self._year)

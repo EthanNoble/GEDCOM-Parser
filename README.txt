@@ -13,5 +13,5 @@ THINGS YOU CAN DO WITH THE GEDCOM OBJECT
   individual = gedcomFileObject.searchIndividualById("[PERSON ID]")
 
 - There are more methods you can play with in the GEDCOM class.
-  I just wanted to give you starting place to see what this program
+  I just wanted to give you a starting place to see what this program
   can do.
