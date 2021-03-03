@@ -1,3 +1,4 @@
+from Containers import Individual
 import GEDCOM
 class Node:
     _parent = None
@@ -14,20 +15,28 @@ class Node:
 
 class Tree:
     _startNode = None
+    _treeList = []
     _families = None
 
-    def __init__(self, startNode, families):
+    def __init__(self, startNode, families, generations):
         self._startNode = startNode
         self._families = families
         self._generateTree(startNode)
+        self._traverseTree([startNode], generations)
     
-    def _traverseTree(self, nodes, depth = 5):
+    def _traverseTree(self, nodes, depth = 5, currentGeneration = 0):
         #Level by level traversal
         if (depth == 0):
             return
         if (len(nodes) == 0):
             return
 
+        if (len(nodes) == 1 and nodes[0] != None):
+            self._treeList.append([])
+            self._treeList[currentGeneration].append(nodes[0]._data)
+            currentGeneration += 1
+
+        self._treeList.append([])
         nextNodeLevel = []
         for i in range(0, len(nodes)):
             if (nodes[i] != None):
@@ -35,17 +44,16 @@ class Tree:
                 nextNodeLevel.append(nodes[i]._right)
                 if (nodes[i]._left != None):
                     if (nodes[i]._left._data != None):
-                        print(nodes[i]._left._data._name)
+                        self._treeList[currentGeneration].append(nodes[i]._left._data)
                 else:
-                    print("Unknown")
+                    self._treeList[currentGeneration].append(Individual(None, None, None, "Unknown", None, None, None))
                 if (nodes[i]._right != None):
                     if (nodes[i]._right._data != None):
-                        print(nodes[i]._right._data._name)
+                        self._treeList[currentGeneration].append(nodes[i]._right._data)
                 else:
-                    print("Unknown")
+                    self._treeList[currentGeneration].append(Individual(None, None, None, "Unknown", None, None, None))
 
-        print("-------------------")
-        self._traverseTree(nextNodeLevel, depth - 1)
+        self._traverseTree(nextNodeLevel, depth - 1, currentGeneration + 1)
 
         #Root, left, right traversal
         # if (currentNode._left != None):

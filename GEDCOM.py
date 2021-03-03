@@ -9,7 +9,7 @@ class GEDCOM:
         self._families = families
         self._setIDMembersToObjects()
     
-    def _generateFamilyTree(self, startIndividual):
+    def _generateFamilyTree(self, startIndividual, generations):
         parentOne = self.searchFamilyById(startIndividual._famcID)
         if (parentOne != None):
             parentOne = DataStructures.Node(parentOne._husband)
@@ -17,7 +17,7 @@ class GEDCOM:
         if (parentTwo != None):
             parentTwo = DataStructures.Node(parentTwo._wife)
         firstIndividual = DataStructures.Node(startIndividual, None, parentOne, parentTwo)
-        return DataStructures.Tree(firstIndividual, self._families)
+        return DataStructures.Tree(firstIndividual, self._families, generations)
 
     @staticmethod
     def fromFile(fileName):
