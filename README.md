@@ -1,11 +1,11 @@
 # INSTRUCTIONS FOR SIMPLE USE
-in a Main.py script:
+In a Main.py script:
 - import GEDCOM from GEDCOM
 - call GEDCOM.fromFile("[fileName]") and store the
   return value (a GEDCOM object) in a variable
 
 # THINGS YOU CAN DO WITH THE GEDCOM OBJECT
-- print the family tree of an individual back by 5 generations
+- Print the family tree of an individual back by 5 generations
   tree = gedcomFile._generateFamilyTree(gedcomFile._individuals[50], 5)
     for g in range(0, len(tree._treeList)):
         for p in range(0, len(tree._treeList[g])):
